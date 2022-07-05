@@ -1,0 +1,12 @@
+.idea
+
+# Dependency directories
+node_modules/
+
+# build / generate output
+dist
+
+# production
+/build
+
+npm-debug.log*

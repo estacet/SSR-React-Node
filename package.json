@@ -1,0 +1,45 @@
+{
+  "name": "react-ssr-ts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/server/server.tsx",
+  "author": "estacet",
+  "license": "ISC",
+  "scripts": {
+    "start:server": "node ./dist/server/server.js",
+    "start:client": "webpack-dev-server --config webpack.config.js --mode development",
+    "build:server": "tsc --project tsconfig.server.json",
+    "build:client": "webpack --config webpack.config.js",
+    "dev": "nodemon ts-node src/server/server.tsx",
+    "lint": "eslint . --fix"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.18.2",
+    "@babel/preset-react": "^7.17.12",
+    "@babel/preset-typescript": "^7.17.12",
+    "@babel/runtime": "^7.18.3",
+    "@tsconfig/node16": "^1.0.2",
+    "@types/express": "^4.17.13",
+    "@types/node": "^17.0.41",
+    "@types/react": "^18.0.12",
+    "@types/react-dom": "^18.0.5",
+    "@typescript-eslint/eslint-plugin": "^5.27.1",
+    "@typescript-eslint/parser": "^5.27.1",
+    "babel-loader": "^8.2.5",
+    "clean-webpack-plugin": "^4.0.0",
+    "copy-webpack-plugin": "^11.0.0",
+    "fork-ts-checker-webpack-plugin": "^7.2.11",
+    "html-webpack-plugin": "^5.5.0",
+    "mini-css-extract-plugin": "^2.6.1",
+    "ts-node": "^10.8.1",
+    "typescript": "^4.7.3",
+    "web-vitals": "^2.1.4",
+    "webpack": "^5.73.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.9.2",
+    "webpack-manifest-plugin": "^5.0.0"
+  },
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}
