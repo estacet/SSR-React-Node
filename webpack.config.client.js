@@ -7,7 +7,7 @@ const MiniCssExtractPlugin = require( 'mini-css-extract-plugin' );
 
 module.exports = {
   entry: {
-    client: path.resolve(__dirname, './src/index.tsx'),
+    client: path.resolve(__dirname, 'src', 'index.tsx'),
   },
   module: {
     rules: [
@@ -79,8 +79,9 @@ module.exports = {
     }
   },
   devServer: {
-    static: path.join(__dirname, "public"),
+    static: path.join(__dirname, "/"),
     compress: true,
     port: 4000,
+    historyApiFallback: true,
   },
 };

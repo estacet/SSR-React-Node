@@ -3,7 +3,7 @@
   "compilerOptions": {
     "module": "es6",
     "target": "es5",
-    "jsx": "react",
+    "jsx": "react-jsx",
     "lib": ["es6", "dom"],
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
@@ -15,9 +15,10 @@
     "emitDeclarationOnly": true,
     "strict": true,
     "strictNullChecks": true,
-    "noImplicitAny": true
+    "noImplicitAny": true,
+    "moduleResolution": "Node"
   },
   "exclude": [
-    "src/server"
+    "/src/server"
   ]
 }

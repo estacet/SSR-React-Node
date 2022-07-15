@@ -1,23 +1,22 @@
 import React from 'react';
+import {BrowserRouter, Link, Route, Routes} from "react-router-dom";
+import { GetRoutes } from "./routes";
+import {Cards} from "./pages/Cards";
+import {Home} from "./pages/Home";
+import {Card} from "./pages/UniqueCard";
 
 export const App: React.FC = () => {
-    // const [count, setCount] = useState(0);
-    //
-    // const increment = () => {
-    //     setCount(count + 1);
-    // };
-    //
-    // const decrement = () => {
-    //     setCount(count - 1);
-    // };
-
-    return (
-      <>
-        {/*<p>{count}</p>*/}
-        {/*<button onClick={increment}>Increment</button>*/}
-        {/*<button onClick={decrement}>Decrement</button>*/}
-          <p>heeeelooo</p>
-      </>
+  return (
+    <>
+      <BrowserRouter>
+        {/*<Routes>*/}
+        {/*  <Route path={"/"} element={<Home />}/>*/}
+        {/*  <Route path={"/cards"} element={<Cards />}/>*/}
+        {/*  <Route path={"cards/:id"} element={<Card />} />*/}
+        {/*</Routes>*/}
+        <GetRoutes />
+      </BrowserRouter>
+    </>
   );
 }
 

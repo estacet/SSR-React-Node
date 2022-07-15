@@ -4,7 +4,7 @@
     "outDir": "./dist",
     "module": "commonjs",
     "sourceMap": true,
-    "jsx": "react",
+    "jsx": "react-jsx",
     "allowJs": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
@@ -13,12 +13,14 @@
     "lib": ["es6", "dom"],
     "target": "es6",
     "strict": true,
-    "noImplicitAny": true
+    "noImplicitAny": true,
+    "moduleResolution": "Node"
   },
-  "exclude": [
-    "./node_modules"
+  "files": [
+    "src/server/server.tsx"
   ],
-  "include": [
-    "./src/server"
+  "include": ["src/server"],
+  "exclude": [
+    "/node_modules"
   ]
 }

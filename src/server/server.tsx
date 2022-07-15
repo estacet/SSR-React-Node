@@ -5,6 +5,7 @@ import path from 'path';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import { App } from '../App';
+const { StaticRouter } = require( 'react-router-dom' );
 
 const app = express();
 
@@ -18,7 +19,11 @@ app.get("/", (req: Request, res: Response) => {
         return res.send(
             data.replace(
                 '<div id="root"></div>',
-                `<div id="root">${ReactDOMServer.renderToString(<App />)}</div>`
+                `<div id="root">${ReactDOMServer.renderToString(
+                  <StaticRouter location={req.originalUrl}>
+                    <App />
+                  </StaticRouter>
+                )}</div>`
             )
         );
     });
