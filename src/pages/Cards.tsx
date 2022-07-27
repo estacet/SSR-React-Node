@@ -1,5 +1,10 @@
 import React from "react";
+import { FilterForm } from "../components/FilterFormComponents/FilterForm";
 
 export const Cards: React.FC = () => {
-  return <div>All Cards</div>
+  return (
+    <div>
+      <FilterForm />
+    </div>
+  );
 }

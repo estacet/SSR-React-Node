@@ -1,8 +1,9 @@
-import { Route, Routes } from "react-router-dom";
-import { Home } from "./pages/Home"
-import { Cards } from "./pages/Cards"
-import { Card } from "./pages/UniqueCard"
-import React, {ReactElement} from "react";
+import React, { ReactElement, Suspense } from "react";
+import { Route, Switch } from "react-router-dom";
+import { Home } from "./pages/Home";
+import { Cards } from "./pages/Cards";
+import { Card } from "./pages/UniqueCard";
+
 
 export const commonRoutes = [
   {
@@ -21,7 +22,7 @@ export const commonRoutes = [
     path: "/cards",
     component: Cards,
     description:
-        "All available cards are here",
+      "All available cards are here",
     disabled: false,
     logoType: "Cards",
     divider: true,
@@ -43,17 +44,16 @@ export const commonRoutes = [
 
 const allRoutes: JSX.Element[] =
   commonRoutes.map((r) => (
-    <Route key={r.key} path={r.path} element={<>{r.component}</>} />
+    <Route key={r.key} path={r.path} component={r.component} exact />
   ));
 console.log(allRoutes);
+
 export const GetRoutes = (): ReactElement => {
   return (
-    <Routes>
-      <Routes>
-        <Route path={"/"} element={<Home />}/>
-        <Route path={"/cards"} element={<Cards />}/>
-        <Route path={"cards/:id"} element={<Card />} />
-      </Routes>
-    </Routes>
+    <>
+      <Suspense fallback={<div>Loading...Please Wait</div>}>
+        <Switch>{allRoutes}</Switch>
+      </Suspense>
+    </>
   );
 }

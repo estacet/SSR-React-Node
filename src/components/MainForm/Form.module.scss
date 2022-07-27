@@ -1,0 +1,14 @@
+.form {
+  position: absolute;
+  width: 50%;
+  margin: 20% auto;
+  display: inline-flex;
+  justify-content: space-evenly;
+  border: 1px solid green;
+
+  select {
+    .firstOption {
+      display: none;
+    }
+  }
+}
