@@ -29,20 +29,18 @@ export const Select: React.FC<Props> = ({
   register
 }) => {
   return (
-    <>
-      <select
-        {...(register && register(name))}
-        onChange={(e) => changeHandler(e.currentTarget.value)}
-      >
-        {placeHolder && (
-          <option className={style.firstOption} value="">
-            {placeHolder}
-          </option>
-        )}
-        {options.map((option: Option, index: number) => (
-          <option key={index} value={option.value}></option>
-        ))}
-      </select>
-    </>
+    <select
+      {...(register && register(name))}
+      onChange={(e) => changeHandler(e.currentTarget.value)}
+    >
+      {placeHolder && (
+        <option className={style.firstOption} value="">
+          {placeHolder}
+        </option>
+      )}
+      {options.map((option: Option, index: number) => (
+        <option key={index} value={option.value}></option>
+      ))}
+    </select>
   );
 }

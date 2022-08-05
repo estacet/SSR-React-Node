@@ -1,14 +1,20 @@
 import React from 'react';
-import { BrowserRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { GetRoutes } from "./routes";
 
 export const App: React.FC = () => {
   return (
-    <>
-      <BrowserRouter>
-        <GetRoutes />
-      </BrowserRouter>
-    </>
+    <div>
+      Hello
+      <div className="list">
+        <ul>
+          <li><Link to="/">Home</Link></li>
+          <li><Link to="/cards">Cards</Link></li>
+          <li><Link to="/testCards">TestCards</Link></li>
+        </ul>
+      </div>
+      <GetRoutes />
+    </div>
   );
 }
 

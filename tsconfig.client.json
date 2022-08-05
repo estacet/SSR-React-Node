@@ -20,5 +20,8 @@
   },
   "exclude": [
     "/src/server"
+  ],
+  "typeRoots":[
+    "./src/declarations"
   ]
 }

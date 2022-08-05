@@ -75,3 +75,11 @@
     cursor: pointer;
   }
 }
+
+.activeForm {
+  form {
+    div {
+      margin: initial;
+    }
+  }
+}

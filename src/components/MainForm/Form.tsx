@@ -1,8 +1,12 @@
-import React, { DetailedReactHTMLElement, ReactElement } from "react";
+import React, { DetailedReactHTMLElement } from "react";
 import { useForm } from "react-hook-form";
 import style from "./Form.module.scss";
 
-export const Form: React.FC = ({ children }) => {
+type Props = {
+  children?: JSX.Element | JSX.Element[]
+}
+
+export const Form: React.FC<Props> = ({ children }) => {
   const {
     register,
     handleSubmit,
@@ -14,8 +18,8 @@ export const Form: React.FC = ({ children }) => {
     console.log(data);
   };
 
-  const childrenWithExtraProp = React.Children.map(children as ReactElement, (child) => {
-    if (React.isValidElement(child) && child.props.name) {
+  const childrenWithExtraProp = React.Children.map(children, (child) => {
+    if (React.isValidElement(child) /*&& child.props.name*/) {
       return React.cloneElement(child as DetailedReactHTMLElement<any, HTMLElement>, {
         register: register,
       });

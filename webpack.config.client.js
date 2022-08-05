@@ -48,7 +48,7 @@ module.exports = {
     }),
     // extract css to external stylesheet file
     new MiniCssExtractPlugin( {
-      filename: 'dist/styles.css'
+      filename: 'styles.css'
     } ),
     new CleanWebpackPlugin(),
     // copy static files from `server` to `dist`
@@ -79,7 +79,7 @@ module.exports = {
     }
   },
   devServer: {
-    static: path.join(__dirname, "/"),
+    static: path.join(__dirname, "/dist"),
     compress: true,
     port: 4000,
     historyApiFallback: true,

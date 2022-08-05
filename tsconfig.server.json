@@ -1,7 +1,7 @@
 {
   "extends": "@tsconfig/node16/tsconfig.json",
   "compilerOptions": {
-    "outDir": "./dist",
+    "outDir": "./dist/server",
     "module": "commonjs",
     "sourceMap": true,
     "jsx": "react-jsx",
