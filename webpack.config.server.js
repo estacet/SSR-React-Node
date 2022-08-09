@@ -1,13 +1,14 @@
 const nodeExternals = require('webpack-node-externals');
 const path = require('path')
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 module.exports = {
   name: 'server',
   entry: {
     server: path.resolve(__dirname, 'src/server/server.tsx'),
   },
-  mode: 'production',
+  mode: 'development',
   output: {
     path: path.resolve(__dirname, 'dist/server'),
     filename: '[name].js',
@@ -44,7 +45,8 @@ module.exports = {
   },
   plugins: [
     new MiniCssExtractPlugin( {
-      filename: 'styles.css'
+      filename: 'css/styles.css'
     } ),
+    new CleanWebpackPlugin(),
   ]
 }

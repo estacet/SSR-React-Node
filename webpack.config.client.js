@@ -1,13 +1,16 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require( 'copy-webpack-plugin' );
 const MiniCssExtractPlugin = require( 'mini-css-extract-plugin' );
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
   entry: {
     client: path.resolve(__dirname, 'src', 'index.tsx'),
+  },
+  output: {
+    path: path.resolve(__dirname, './dist/client'),
+    filename: "static/js/vendor.js",
   },
   module: {
     rules: [
@@ -34,24 +37,12 @@ module.exports = {
   resolve: {
     extensions: [".tsx", ".ts", ".js"],
   },
-  output: {
-    path: path.resolve(__dirname, './dist/client'),
-    filename: "[name].js",
-  },
   mode: "development",
   plugins: [
-    new ForkTsCheckerWebpackPlugin({
-      async: false,
-      typescript: {
-        configFile: "tsconfig.client.json"
-      }
-    }),
-    // extract css to external stylesheet file
     new MiniCssExtractPlugin( {
-      filename: 'styles.css'
+      filename: 'static/css/styles.css'
     } ),
     new CleanWebpackPlugin(),
-    // copy static files from `server` to `dist`
     new CopyWebpackPlugin( {
       patterns: [
         {
@@ -64,20 +55,6 @@ module.exports = {
       template: path.join(__dirname, 'src', 'index.html')
     })
   ],
-  optimization: {
-    splitChunks: {
-      cacheGroups: {
-        default: false,
-        vendors: false,
-      
-        vendor: {
-          chunks: 'all', // both : consider sync + async chunks for evaluation
-          name: 'vendor', // name of chunk file
-          test: /node_modules/, // test regular expression
-        }
-      }
-    }
-  },
   devServer: {
     static: path.join(__dirname, "/dist"),
     compress: true,
