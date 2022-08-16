@@ -2,6 +2,7 @@ const nodeExternals = require('webpack-node-externals');
 const path = require('path')
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const { loader } = require("mini-css-extract-plugin");
 
 module.exports = {
   name: 'server',
@@ -27,7 +28,7 @@ module.exports = {
         test: /\.(ts|js)x?$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader",
+          loader: 'babel-loader',
           options: {
             presets: [
               "@babel/preset-env",

@@ -1,5 +1,5 @@
 import React, {
-  useCallback,
+  useCallback, useContext, useEffect,
   useRef,
   useState,
 } from "react";
@@ -7,6 +7,7 @@ import { Form } from "../MainForm/Form";
 import { Option, Select } from "../MainForm/Select";
 import { RenderedFormSelections } from "./RenderedFormSelections";
 import style from "./FilterForm.module.scss";
+import { AppContext } from "../../shared/AppContext";
 
 //TODO: fetch names&colors from back-end
 const names = [
@@ -39,6 +40,7 @@ const colors = [
   },
 ];
 export const FilterForm: React.FC = () => {
+  const { value } = useContext(AppContext);
   const [activeFilterForm, setActiveFilterForm] = useState(false);
   const [selectedCardNames, _setSelectedCardNames] = useState<string[]>([]);
   const selectedCardNamesRef = useRef<string[]>(selectedCardNames);
@@ -84,6 +86,10 @@ export const FilterForm: React.FC = () => {
     });
     return optionsArr;
   };
+  
+  useEffect(() => {
+    console.log(value);
+  }, [value]);
   
   return (
     <>

@@ -1,11 +1,10 @@
 import React from 'react';
 import { Link } from "react-router-dom";
-import { GetRoutes } from "./routes";
+import { GetRoutes } from "../routes";
 
 export const App: React.FC = () => {
   return (
     <div>
-      Hello
       <div className="list">
         <ul>
           <li><Link to="/">Home</Link></li>

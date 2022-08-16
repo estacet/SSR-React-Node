@@ -6,7 +6,7 @@
   "author": "estacet",
   "license": "ISC",
   "scripts": {
-    "start:server": "nodemon ./dist/server/server.js",
+    "start:server": "node --experimental-fetch --trace-warnings ./dist/server/server.js",
     "start:client": "webpack-dev-server --config webpack.config.client.js --mode development",
     "build:server": "webpack --config webpack.config.server.js",
     "build:client": "webpack --config webpack.config.client.js",
@@ -35,7 +35,7 @@
     "react-router-dom": "^6.3.0",
     "sass": "^1.54.0",
     "sass-loader": "^13.0.2",
-    "ts-node": "^10.8.1",
+    "source-map-loader": "^4.0.0",
     "typescript": "^4.7.3",
     "web-vitals": "^2.1.4",
     "webpack": "^5.73.0",
