@@ -1,11 +1,6 @@
-import React, { Ref } from "react";
+import React from "react";
 import { ChangeHandler } from "react-hook-form";
 import style from "./Form.module.scss";
-
-export type Option = {
-  label: string;
-  value: string;
-}
 
 export type Register = {
   onChange: ChangeHandler;
@@ -15,7 +10,7 @@ export type Register = {
 
 type Props = {
   name: string;
-  options: Option[];
+  options: any[];
   changeHandler: (value: string) => void;
   placeHolder: string;
   register?: (name: string) => Register;
@@ -38,8 +33,8 @@ export const Select: React.FC<Props> = ({
           {placeHolder}
         </option>
       )}
-      {options.map((option: Option, index: number) => (
-        <option key={index} value={option.value}></option>
+      {options.map((option: string, index: number) => (
+        <option key={index} value={option} label={option}></option>
       ))}
     </select>
   );

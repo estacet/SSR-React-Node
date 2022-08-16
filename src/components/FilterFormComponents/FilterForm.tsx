@@ -4,43 +4,47 @@ import React, {
   useState,
 } from "react";
 import { Form } from "../MainForm/Form";
-import { Option, Select } from "../MainForm/Select";
+import { Select } from "../MainForm/Select";
 import { RenderedFormSelections } from "./RenderedFormSelections";
 import style from "./FilterForm.module.scss";
-import { AppContext } from "../../shared/AppContext";
+import { AppContext } from "../../shared/context/AppContext";
+import { getCardsData } from "../../shared/app";
 
 //TODO: fetch names&colors from back-end
-const names = [
-  {
-    label: "First Card",
-    value: "first"
-  },
-  {
-    label: "Second Card",
-    value: "second"
-  },
-  {
-    label: "Third Card",
-    value: "third"
-  },
-];
 
-const colors = [
-  {
-    label: "Blue",
-    value: "blue"
-  },
-  {
-    label: "Yellow",
-    value: "yellow"
-  },
-  {
-    label: "Red",
-    value: "red"
-  },
-];
+// const names = [
+//   {
+//     label: "First Card",
+//     value: "first"
+//   },
+//   {
+//     label: "Second Card",
+//     value: "second"
+//   },
+//   {
+//     label: "Third Card",
+//     value: "third"
+//   },
+// ];
+//
+// const colors = [
+//   {
+//     label: "Blue",
+//     value: "blue"
+//   },
+//   {
+//     label: "Yellow",
+//     value: "yellow"
+//   },
+//   {
+//     label: "Red",
+//     value: "red"
+//   },
+// ];
 export const FilterForm: React.FC = () => {
-  const { value } = useContext(AppContext);
+  const { colors, setColors, names, setNames } = useContext(AppContext);
+  const [namesOptions, setNamesOptions] = useState<any[]>(names);
+  const [colorsOptions, setColorsOptions] = useState<any[]>(colors);
   const [activeFilterForm, setActiveFilterForm] = useState(false);
   const [selectedCardNames, _setSelectedCardNames] = useState<string[]>([]);
   const selectedCardNamesRef = useRef<string[]>(selectedCardNames);
@@ -56,8 +60,6 @@ export const FilterForm: React.FC = () => {
     selectedCardColorRef.current = data;
     _setSelectedCardColor([...data]);
   }, []);
-  const [namesOptions, setNamesOptions] = useState<Option[]>(names);
-  const [colorsOptions, setColorsOptions] = useState<Option[]>(colors);
   
   const copyOfNames = [...selectedCardNames];
   const copyOfColors = [...selectedCardColors];
@@ -65,12 +67,12 @@ export const FilterForm: React.FC = () => {
   const copyOfColorsOptions = [...colorsOptions];
   
   const onOptionSelect = (
-    copyOfSelectOptionsArr: Option[],
+    copyOfSelectOptionsArr: any[],
     chosenOption: string,
-    setState: (state: Option[]) => void
+    setState: (state: any[]) => void
   ): void => {
     const removeIndex = copyOfSelectOptionsArr.findIndex(
-      (option) => option.value === chosenOption
+      (option) => option === chosenOption
     );
     copyOfSelectOptionsArr.splice(removeIndex, 1);
     setState(copyOfSelectOptionsArr);
@@ -78,8 +80,8 @@ export const FilterForm: React.FC = () => {
   
   const onOptionUnselect = (
     item: string,
-    optionsArr: Option[]
-  ): Option[] => {
+    optionsArr: any[]
+  ): any[] => {
     optionsArr.push({
       label: item.charAt(0).toUpperCase() + item.slice(1),
       value: item,
@@ -88,8 +90,12 @@ export const FilterForm: React.FC = () => {
   };
   
   useEffect(() => {
-    console.log(value);
-  }, [value]);
+    getCardsData().then((response) => {
+      console.log(response);
+      setColors(response.cardColors);
+      setNames(response.cardNames);
+    });
+  }, []);
   
   return (
     <>
@@ -132,7 +138,7 @@ export const FilterForm: React.FC = () => {
         <Form>
           <Select
             name={"names"}
-            options={namesOptions}
+            options={names}
             placeHolder={"Names"}
             changeHandler={(value: string) => {
               setActiveFilterForm(true);
@@ -142,9 +148,10 @@ export const FilterForm: React.FC = () => {
           />
           <Select
             name={"colors"}
-            options={colorsOptions}
+            options={colors}
             placeHolder={"colors"}
             changeHandler={(value: string) => {
+              console.log(value);
               setActiveFilterForm(true);
               setSelectedTags([...selectedCardColors, value]);
               onOptionSelect(copyOfColorsOptions, value, setColorsOptions);

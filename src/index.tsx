@@ -2,18 +2,13 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { App } from "./shared/App";
 import { BrowserRouter } from "react-router-dom";
-import { AppContext } from "./shared/AppContext";
-
-let value = {};
-if (window && window.initialData) {
-  value = window.initialData;
-}
+import { AppContextWrapper } from "./shared/context/AppContext";
 
 ReactDOM.hydrateRoot(
   document.getElementById('root') as HTMLElement,
-  <AppContext.Provider value={value}>
+  <AppContextWrapper>
     <BrowserRouter>
       <App />
     </BrowserRouter>
-  </AppContext.Provider>
+  </AppContextWrapper>
 );
