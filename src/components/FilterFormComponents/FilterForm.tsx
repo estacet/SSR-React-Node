@@ -1,5 +1,6 @@
 import React, {
-  useCallback, useContext, useEffect,
+  useCallback,
+  useContext,
   useRef,
   useState,
 } from "react";
@@ -8,43 +9,11 @@ import { Select } from "../MainForm/Select";
 import { RenderedFormSelections } from "./RenderedFormSelections";
 import style from "./FilterForm.module.scss";
 import { AppContext } from "../../shared/context/AppContext";
-import { getCardsData } from "../../shared/app";
 
-//TODO: fetch names&colors from back-end
-
-// const names = [
-//   {
-//     label: "First Card",
-//     value: "first"
-//   },
-//   {
-//     label: "Second Card",
-//     value: "second"
-//   },
-//   {
-//     label: "Third Card",
-//     value: "third"
-//   },
-// ];
-//
-// const colors = [
-//   {
-//     label: "Blue",
-//     value: "blue"
-//   },
-//   {
-//     label: "Yellow",
-//     value: "yellow"
-//   },
-//   {
-//     label: "Red",
-//     value: "red"
-//   },
-// ];
 export const FilterForm: React.FC = () => {
-  const { colors, setColors, names, setNames } = useContext(AppContext);
-  const [namesOptions, setNamesOptions] = useState<any[]>(names);
-  const [colorsOptions, setColorsOptions] = useState<any[]>(colors);
+  const { cardNames, cardColors } = useContext(AppContext);
+  const [namesOptions, setNamesOptions] = useState<any[]>(cardNames);
+  const [colorsOptions, setColorsOptions] = useState<any[]>(cardColors);
   const [activeFilterForm, setActiveFilterForm] = useState(false);
   const [selectedCardNames, _setSelectedCardNames] = useState<string[]>([]);
   const selectedCardNamesRef = useRef<string[]>(selectedCardNames);
@@ -89,14 +58,6 @@ export const FilterForm: React.FC = () => {
     return optionsArr;
   };
   
-  useEffect(() => {
-    getCardsData().then((response) => {
-      console.log(response);
-      setColors(response.cardColors);
-      setNames(response.cardNames);
-    });
-  }, []);
-  
   return (
     <>
       {activeFilterForm && (
@@ -138,7 +99,7 @@ export const FilterForm: React.FC = () => {
         <Form>
           <Select
             name={"names"}
-            options={names}
+            options={namesOptions}
             placeHolder={"Names"}
             changeHandler={(value: string) => {
               setActiveFilterForm(true);
@@ -148,7 +109,7 @@ export const FilterForm: React.FC = () => {
           />
           <Select
             name={"colors"}
-            options={colors}
+            options={colorsOptions}
             placeHolder={"colors"}
             changeHandler={(value: string) => {
               console.log(value);
