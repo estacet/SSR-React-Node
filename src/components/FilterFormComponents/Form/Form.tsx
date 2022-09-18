@@ -1,6 +1,5 @@
 import React, { DetailedReactHTMLElement } from "react";
 import { useForm } from "react-hook-form";
-import style from "./Form.module.scss";
 
 type Props = {
   children?: JSX.Element | JSX.Element[]
@@ -28,7 +27,7 @@ export const Form: React.FC<Props> = ({ children }) => {
   });
 
   return (
-    <form className={style.form} onSubmit={handleSubmit(submittedForm)}>
+    <form onSubmit={handleSubmit(submittedForm)}>
       {childrenWithExtraProp}
       <button type={"submit"} onClick={handleSubmit(submittedForm)}>
         Submit

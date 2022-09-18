@@ -1,7 +1,6 @@
 import React from "react";
 import { ChangeHandler } from "react-hook-form";
-import style from "./Form.module.scss";
-
+import style from "../FilterForm.module.scss";
 export type Register = {
   onChange: ChangeHandler;
   onBlur: ChangeHandler;

@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import "./styles/index.scss";
 import { App } from "./shared/App";
 import { BrowserRouter } from "react-router-dom";
 import { AppContext } from "./shared/context/AppContext";

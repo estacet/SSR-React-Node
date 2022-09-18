@@ -6,9 +6,6 @@ node_modules/
 # build / generate output
 dist
 
-# server with side API to test data fetching
-server
-
 # production
 /build
 

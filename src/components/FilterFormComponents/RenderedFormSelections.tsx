@@ -36,7 +36,8 @@ export const RenderedFormSelections: React.FC<Props> = ({
           ) : (
             <>
               {twoSelectedValuesToDisplay.map((item: string, index) => (
-                <span key={index} className={style.formValue}>
+                <span key={index}>
+                {/*<span key={index} className={style.formValue}>*/}
                   {item}
                   <div
                     onClick={() => {
@@ -50,7 +51,7 @@ export const RenderedFormSelections: React.FC<Props> = ({
                 </span>
               ))}
               <span
-                className={style.hiddenSelectedItems}
+                // className={style.hiddenSelectedItems}
                 onClick={() => {
                   setShowAllSelections(true);
                 }}

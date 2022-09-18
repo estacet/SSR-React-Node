@@ -1,10 +1,7 @@
 import React, { ReactElement } from "react";
-import { Home } from "./pages/Home";
-import { Cards } from "./pages/Cards";
-import { Card } from "./pages/UniqueCard";
-import { TestCard } from "./pages/TestCard";
 import { Route, Routes } from "react-router-dom";
-
+import { Home } from "./pages/Home";
+import { UserPage } from "./pages/User";
 
 export const routes = [
   {
@@ -18,39 +15,15 @@ export const routes = [
     logoType: "Home",
   },
   {
-    name: "Cards",
-    key: "/Cards",
-    path: "/cards",
-    component: Cards,
-    description:
-      "All available cards are here",
+    name: "User",
+    key: "/Users/:id",
+    path: "/users/:id",
+    component: UserPage,
     disabled: false,
-    logoType: "Cards",
+    logoType: "Users",
     divider: true,
-    dividerName: "Cards",
-    dividerLogoType: "Cards",
-  },
-  {
-    name: "TestCards",
-    key: "/TestCards",
-    path: "/testCards",
-    component: TestCard,
-    disabled: false,
-    logoType: "TestCards",
-    divider: true,
-    dividerName: "TestCards",
-    dividerLogoType: "TestCards",
-  },
-  {
-    name: "Cards",
-    key: "/Cards/:id",
-    path: "/cards/:id",
-    component: Card,
-    disabled: false,
-    logoType: "Card",
-    divider: true,
-    dividerName: "Card",
-    dividerLogoType: "Card",
+    dividerName: "Users",
+    dividerLogoType: "Users",
   },
 ];
 
@@ -65,10 +38,10 @@ const allRoutes: JSX.Element[] = routes.map(route => {
 
 export const GetRoutes = (): ReactElement => {
   return (
-    <>
+    <div>
       <Routes>
         {allRoutes}
       </Routes>
-    </>
+    </div>
   );
 }

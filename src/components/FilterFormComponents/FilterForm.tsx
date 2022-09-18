@@ -1,39 +1,49 @@
 import React, {
   useCallback,
   useContext,
+  useMemo,
   useRef,
   useState,
 } from "react";
-import { Form } from "../MainForm/Form";
-import { Select } from "../MainForm/Select";
+import { Form } from "./Form/Form";
+import { Select } from "./Form/Select";
 import { RenderedFormSelections } from "./RenderedFormSelections";
 import style from "./FilterForm.module.scss";
 import { AppContext } from "../../shared/context/AppContext";
+import { results } from "../Table/Table";
+import { User } from "../../types/commonTypes";
 
 export const FilterForm: React.FC = () => {
-  const { cardNames, cardColors } = useContext(AppContext);
-  const [namesOptions, setNamesOptions] = useState<any[]>(cardNames);
-  const [colorsOptions, setColorsOptions] = useState<any[]>(cardColors);
+  //const { results } = useContext(AppContext);
+  const memorizedCountriesOptions = useCallback(() => {
+    const countries: string[] = [];
+    results.map((user: User) => {
+      countries.push(user.location.country);
+    })
+    return [...new Set(countries)];
+  }, [results]);
+  const [countriesOptions, setCountriesOptions] = useState(memorizedCountriesOptions);
+  const [selectedCountries, _setSelectedCountries] = useState<string[]>([]);
+  const selectedCountriesRef = useRef<string[]>(selectedCountries);
+  const setSelectedCountries = useCallback((data: string[]) => {
+    selectedCountriesRef.current = data;
+    _setSelectedCountries([...data]);
+  }, []);
+  
+  const [genderOptions, setGenderOptions] = useState(["male", "female"]);
+  const [selectedGenders, _setSelectedGender] = useState<string[]>([]);
+  const selectedGendersRef = useRef<string[]>(selectedGenders);
+  const setSelectedGenders = useCallback((data: string[]) => {
+    selectedGendersRef.current = data;
+    _setSelectedGender([...data]);
+  }, []);
+  
   const [activeFilterForm, setActiveFilterForm] = useState(false);
-  const [selectedCardNames, _setSelectedCardNames] = useState<string[]>([]);
-  const selectedCardNamesRef = useRef<string[]>(selectedCardNames);
   
-  const setSelectedCardNames = useCallback((data: string[]) => {
-    selectedCardNamesRef.current = data;
-    _setSelectedCardNames([...data]);
-  }, []);
-  const [selectedCardColors, _setSelectedCardColor] = useState<string[]>([]);
-  const selectedCardColorRef = useRef<string[]>(selectedCardColors);
-  
-  const setSelectedTags = useCallback((data: string[]) => {
-    selectedCardColorRef.current = data;
-    _setSelectedCardColor([...data]);
-  }, []);
-  
-  const copyOfNames = [...selectedCardNames];
-  const copyOfColors = [...selectedCardColors];
-  const copyOfNamesOptions = [...namesOptions];
-  const copyOfColorsOptions = [...colorsOptions];
+  const copyOfGenders = [...selectedGenders];
+  const copyOfCountries = [...selectedCountries];
+  const copyOfGenderOptions = [...genderOptions];
+  const copyOfCountriesOptions = [...countriesOptions];
   
   const onOptionSelect = (
     copyOfSelectOptionsArr: any[],
@@ -59,35 +69,35 @@ export const FilterForm: React.FC = () => {
   };
   
   return (
-    <>
+    <div className={style.filterForm}>
       {activeFilterForm && (
         <div className={style.formValuesBlock}>
           <RenderedFormSelections
-            state={copyOfNames}
-            setState={setSelectedCardNames}
+            state={copyOfGenders}
+            setState={setSelectedGenders}
             onDeleteItem={(item: string) => {
               const updatedOptions = onOptionUnselect(
                 item,
-                copyOfNamesOptions
+                copyOfGenderOptions
               );
-              setNamesOptions(updatedOptions);
+              setGenderOptions(updatedOptions);
               if (
-                selectedCardNamesRef.current.length == 0 &&
-                selectedCardColorRef.current.length == 0
+                selectedGendersRef.current.length == 0 &&
+                selectedCountriesRef.current.length == 0
               ) {
                 setActiveFilterForm(false);
               }
             }}
           />
           <RenderedFormSelections
-            state={copyOfColors}
-            setState={setSelectedTags}
+            state={copyOfCountries}
+            setState={setSelectedCountries}
             onDeleteItem={(item: string) => {
-              const updatedOptions = onOptionUnselect(item, copyOfColorsOptions);
-              setColorsOptions(updatedOptions);
+              const updatedOptions = onOptionUnselect(item, copyOfCountriesOptions);
+              setCountriesOptions(updatedOptions);
               if (
-                selectedCardNamesRef.current.length == 0 &&
-                selectedCardColorRef.current.length == 0
+                selectedGendersRef.current.length == 0 &&
+                selectedCountriesRef.current.length == 0
               ) {
                 setActiveFilterForm(false);
               }
@@ -95,31 +105,32 @@ export const FilterForm: React.FC = () => {
           />
         </div>
       )}
-      <div className={activeFilterForm ? style.activeForm : ""}>
+      <div className={`${style.formWrapper} ${activeFilterForm && style.activeForm}`}>
         <Form>
           <Select
-            name={"names"}
-            options={namesOptions}
-            placeHolder={"Names"}
+            name={"gender"}
+            options={genderOptions}
+            placeHolder={"Gender"}
             changeHandler={(value: string) => {
               setActiveFilterForm(true);
-              setSelectedCardNames([...selectedCardNames, value]);
-              onOptionSelect(copyOfNamesOptions, value, setNamesOptions)
+              console.log(value);
+              setSelectedGenders([...selectedGenders, value]);
+              onOptionSelect(copyOfGenderOptions, value, setGenderOptions)
             }}
           />
           <Select
-            name={"colors"}
-            options={colorsOptions}
-            placeHolder={"colors"}
+            name={"countries"}
+            options={countriesOptions}
+            placeHolder={"Countries"}
             changeHandler={(value: string) => {
               console.log(value);
               setActiveFilterForm(true);
-              setSelectedTags([...selectedCardColors, value]);
-              onOptionSelect(copyOfColorsOptions, value, setColorsOptions);
+              setSelectedCountries([...selectedCountries, value]);
+              onOptionSelect(copyOfCountriesOptions, value, setCountriesOptions);
             }}
           />
         </Form>
       </div>
-    </>
+    </div>
   );
 };

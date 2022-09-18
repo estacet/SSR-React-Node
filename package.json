@@ -8,8 +8,7 @@
   "scripts": {
     "start:server": "node --experimental-fetch --trace-warnings ./dist/server/server.js",
     "start:client": "webpack-dev-server --config webpack.config.client.js --mode development",
-    "build:server": "webpack --config webpack.config.server.js",
-    "build:client": "webpack --config webpack.config.client.js",
+    "build": "webpack --config webpack.config.client.js webpack.config.server.js",
     "lint": "eslint . --fix"
   },
   "devDependencies": {
